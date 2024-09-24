@@ -1,0 +1,47 @@
+
+const int mx=1e3+12;
+int dp[mx][mx]; 
+string str; 
+int n;  
+
+int func(int i, int j)
+{
+    if(i>=j)return 1; 
+    if(dp[i][j]!=-1)return dp[i][j]; 
+    if(str[i]==str[j]) return dp[i][j]=func(i+1,j-1); 
+    else return dp[i][j]=0; 
+}
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+
+        n=s.size(); 
+        str=s; 
+        memset(dp,-1,sizeof(dp)); 
+        int mx=0,x=-1,y=-1; 
+        
+
+        for(int i=0; i<n; i++)
+        {
+            for(int j=i; j<n; j++)
+            {
+                if(func(i,j)==1)
+                {
+                    int val=(j-i)+1; 
+                    if(val>mx)
+                    {
+                        mx=val; 
+                        x=i; 
+                        y=j; 
+                    }
+                }
+            }
+        }
+
+        string ans=""; 
+        for(int i=x; i<=y; i++)ans+=s[i]; 
+        return ans; 
+        
+    }
+};
