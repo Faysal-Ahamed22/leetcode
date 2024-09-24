@@ -1,0 +1,27 @@
+
+const int  mx=1e3+12; 
+int dp[mx][mx]; 
+string s1; 
+int n; 
+
+int func( int i , int j)
+{
+    if(i==j)return dp[i][j]=1; 
+    if(i>j)return dp[i][j]=0; 
+    if(dp[i][j]!=-1)return dp[i][j]; 
+    if(s1[i]==s1[j])return dp[i][j]=2+func(i+1,j-1); 
+    else return dp[i][j]=max(func(i+1,j),func(i,j-1));
+}
+
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+
+        memset(dp,-1, sizeof(dp)); 
+        s1=s; 
+        n=s.size(); 
+        return func(0,n-1); 
+
+        
+    }
+};
