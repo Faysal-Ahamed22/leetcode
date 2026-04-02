@@ -1,1 +1,130 @@
 
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define pb push_back
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
+#define all(x) (x).begin(), (x).end()
+#define gcd(a, b) __gcd(a, b)
+#define lcm(a, b) (a * b) / __gcd(a, b)
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+
+class Node
+{
+public:
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val)
+    {
+
+        data = val;
+        left = right = NULL;
+    }
+};
+
+int index = -1;
+
+Node *buildTree(vector<int> preorder)
+{
+    index++;
+    if (preorder[index] == -1)
+        return NULL;
+    Node *root = new Node(preorder[index]);
+
+    root->left = buildTree(preorder);
+    root->right = buildTree(preorder);
+
+    return root;
+}
+
+void preTravers(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    cout << root->data << " ";
+    preTravers(root->left);
+    preTravers(root->right);
+}
+
+void InTravers(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    InTravers(root->left);
+    cout << root->data << " ";
+    InTravers(root->right);
+}
+
+void postTravers(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    postTravers(root->left);
+    postTravers(root->right);
+    cout << root->data << " ";
+}
+
+void bfs(Node *root)
+{
+    queue<Node *> q;
+    q.push(root);
+    q.push(NULL); // to identify the end of level
+    while (!q.empty())
+    {
+        Node *cur = q.front();
+        q.pop();
+        if (cur == NULL)
+        {
+            if (q.size())
+            {
+                cout << endl;
+                q.push(NULL);
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+        cout << cur->data << " ";
+        if (cur->left != NULL)
+            q.push(cur->left);
+        if (cur->right != NULL)
+            q.push(cur->right);
+    }
+}
+
+void solve()
+{
+    vector<int> preoredr = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
+    Node *root = buildTree(preoredr);
+    preTravers(root);
+    cout << endl;
+    InTravers(root);
+    cout << endl;
+    postTravers(root);
+    cout << endl;
+    bfs(root);
+}
+
+int main()
+{
+    optimize();
+    ll t;
+    t = 1;
+    for (ll tc = 1; tc <= t; tc++)
+    {
+        // cout<<"Case "<<tc<<": ";
+        solve();
+    }
+}
+/*****************  ALHAMDULILLAH  *****************/
