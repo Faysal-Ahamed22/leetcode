@@ -42,13 +42,45 @@ Node *buildTree(vector<int> preorder)
     return root;
 }
 
+void preTravers(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    cout << root->data << " ";
+    preTravers(root->left);
+    preTravers(root->right);
+}
+
+void InTravers(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    InTravers(root->left);
+    cout << root->data << " ";
+    InTravers(root->right);
+}
+
+void postTravers(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    postTravers(root->left);
+    postTravers(root->right);
+    cout << root->data << " ";
+}
+
 void solve()
 {
     vector<int> preoredr = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
     Node *root = buildTree(preoredr);
-    cout << root->data << endl;
-    cout << root->left->data << endl;
-    cout << root->right->data << endl;
+    preTravers(root);
+    cout << endl;
+    InTravers(root);
+     cout << endl;
+    postTravers(root);
 }
 
 int main()
